@@ -1,11 +1,12 @@
-Place the csv file in the same directory as csv-decoder.js.
+Umieść plik `csv` w tym samym katalogu co `csv-decoder.js`.
 
-Installation
+Instalacja: 
+
 ```
 npm i csv-parse
 ```
 
-Run
+Uruchomienie:
 ```
 node csv-decoder.js "supporters.csv" --out supporter-list.txt
 ```
