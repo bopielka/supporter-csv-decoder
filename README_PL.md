@@ -8,5 +8,5 @@ npm i csv-parse
 
 Uruchomienie:
 ```
-node csv-decoder.js "supporters.csv" --out supporter-list.txt
+node csv-decoder.js
 ```

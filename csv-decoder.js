@@ -15,16 +15,26 @@ process.on('unhandledRejection', (e) => {
 const NAME = 'Wspierający'; //supporter
 const LEVEL = 'Obecny poziom'; //current level
 
-const inputArg = process.argv[2];
 const outIdx = process.argv.indexOf('--out');
 const outArg = outIdx > -1 ? process.argv[outIdx + 1] : null;
 
-if (!inputArg) {
-  console.error('Usage: node csv-decoder.js "<file.csv>" [--out supporter-list.txt]');
+function findFirstCsv(dir) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const files = entries
+    .filter(e => e.isFile() && /\.csv$/i.test(e.name))
+    .map(e => e.name)
+    .sort((a, b) => a.localeCompare(b, 'pl', { sensitivity: 'base' }));
+  return files.length ? path.join(dir, files[0]) : null;
+}
+
+const rootDir = process.cwd();
+const inputAbs = findFirstCsv(rootDir);
+
+if (!inputAbs) {
+  console.error('❌ NO CSV file found in directory:', rootDir);
   process.exit(1);
 }
 
-const inputAbs = path.resolve(process.cwd(), inputArg);
 const defaultOut = path.join(path.dirname(inputAbs), 'supporter-list.txt');
 const outAbs = outArg ? path.resolve(process.cwd(), outArg) : defaultOut;
 
@@ -78,8 +88,9 @@ for (const [k, arr] of groups) {
 let out = [];
 for (const lvl of order) {
   const names = groups.get(lvl) ?? [];
+  if (!names.length) continue; // pomiń poziomy bez wpisów
   out.push(`${headerMap[lvl]}:`);
-  out.push(names.length ? names.map(n => `${n}`).join('\n') : '(brak)');
+  out.push(names.join('\n'));
   out.push('');
 }
 
