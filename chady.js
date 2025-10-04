@@ -48,12 +48,14 @@ if (!rows.length || !(NAME in rows[0]) || !(LEVEL in rows[0])) {
   process.exit(1);
 }
 
-const order = ['CHAD TOTALNY', 'OMEGA CHAD', 'GIGA CHAD', 'CHAD'];
+const order = ['OSADNIK', 'WATAŻKA', 'KSIĄŻE', 'KRÓL', 'IMPERATOR', 'BÓSTWO'];
 const headerMap = {
-  'CHAD TOTALNY': 'CHADY TOTALNE',
-  'OMEGA CHAD': 'OMEGA CHADY',
-  'GIGA CHAD': 'GIGA CHADY',
-  'CHAD': 'CHADY'
+  'OSADNIK': 'OSADNICY',
+  'WATAŻKA': 'WATAŻKOWIE',
+  'KSIĄŻE': 'KSIĄŻĘTA',
+  'KRÓL': 'KRÓLOWIE',
+  'IMPERATOR': 'IMPERATORZY',
+  'BÓSTWO': 'BOGOWIE'
 };
 const groups = new Map(order.map(k => [k, []]));
 
